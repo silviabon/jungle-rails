@@ -35,6 +35,8 @@ module Jungle
       g.assets       false
     end
 
+    # config.action_mailer.preview_path = "jungle-rails/test/mailers/previews/user_mailer_preview.rb"
+
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
   end

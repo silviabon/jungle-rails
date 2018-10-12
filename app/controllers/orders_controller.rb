@@ -10,7 +10,10 @@ class OrdersController < ApplicationController
     order  = create_order(charge)
 
     if order.valid?
+
+      Notifier.order_receipt(order).deliver_later # enqueue the email sending to Active Job
       empty_cart!
+      
       redirect_to order, notice: 'Your Order has been placed.'
     else
       redirect_to cart_path, flash: { error: order.errors.full_messages.first }
