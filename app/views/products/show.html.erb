@@ -25,6 +25,36 @@
         </dl>
       </div>
     </div>
+    <br /><br />
+    <div>
+        <% if current_user == nil %>
+        <h5>Please log in to create a review</h5>
+        <% else %>
+        <div class = "form-block">
+        <h4>Please enter a review</h4>
+        <%= form_for([@product, @review], class: "form-group" ) do |f| %>
+          Rating : <%= f.select :rating, [1, 2, 3, 4, 5], class: "form-control"%><br /><br />
+          Description <%= f.text_area :description, class: "form-control", rows:"4" %><br />
+
+        <%= f.submit class: "btn btn-primary"%>
+        </div>
+        <% end %>
+        <% end %>
+        <br>
+        <h3>Product Reviews</h3>
+        <% @product_reviews.each do |item| %>
+        <dl class="dl-horizontal">
+          <dt>Rating</dt>
+          <dd><%= item.rating %> / 5</dd>
+          <dt>Description</dt>
+          <dd><%= item.description %></dd>
+          <% if current_user != nil && current_user.id == item.user_id %>
+          <dt>Delete</dt>
+          <dd><%= link_to fa_icon('trash'), product_review_path(@product, item), method: :delete, class: 'btn btn-sm btn-danger', data: { confirm: "Are you sure?" } %></dd>
+          <% end %>
+        </dl>
+      <% end %>
+    </div>
 
   </article>
 

@@ -35,6 +35,18 @@ puts "Re-creating Products ..."
 
 Product.destroy_all
 
+user1 = User.create!({
+name: "John",
+email: "john@gmail.com",
+password_digest: "1"
+})
+
+user2 = User.create!({
+  name: "Jackie",
+  email: "jk@gmail.com",
+  password_digest: "1"
+  })
+
 cat1.products.create!({
   name:  'Men\'s Classy shirt',
   description: Faker::Hipster.paragraph(4),
@@ -59,12 +71,24 @@ cat1.products.create!({
   price: 34.49
 })
 
-cat1.products.create!({
+product1 = cat1.products.create!({
   name:  'Hipster Socks',
   description: Faker::Hipster.paragraph(4),
   image: open_asset('apparel4.jpg'),
   quantity: 8,
   price: 25.00
+})
+
+product1.reviews.create!({
+  user_id: 1,
+  rating: 3,
+  description: "It's too small."
+})
+
+product1.reviews.create!({
+  user_id: 2,
+  rating: 5,
+  description: "Best socks ever!"
 })
 
 cat1.products.create!({
@@ -124,7 +148,7 @@ cat3.products.create!({
   price: 987.65
 })
 
-cat3.products.create!({
+product2 = cat3.products.create!({
   name:  'Red Bookshelf',
   description: Faker::Hipster.paragraph(4),
   image: open_asset('furniture3.jpg'),
@@ -132,5 +156,10 @@ cat3.products.create!({
   price: 2_483.75
 })
 
+product2.reviews.create!({
+  user_id: 1,
+  rating: 4,
+  description: "My cat likes it!"
+})
 
 puts "DONE!"
